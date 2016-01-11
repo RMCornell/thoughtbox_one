@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "user sign up", :type => feature do
   it "directs user to sign in/sign up page" do
-    visit '/'
+    visit('/')
     expect(page).to have_content "Sign In"
     expect(page).to have_content "Sign Up"
   end
@@ -11,6 +11,15 @@ describe "user sign up", :type => feature do
     visit '/'
     click_link "Sign Up"
     expect(page).to have_content "New User Sign Up"
+    expect(page).to have_field "username"
+    expect(page).to have_field "password"
+  end
+
+  it 'creates a new user' do
+    visit '/'
+    click_link "Sign Up"
+    fill_in 'username', :with => "example@something.com"
+    fill_in 'password', :with => "password"
   end
 end
 
